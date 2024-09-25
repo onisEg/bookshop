@@ -16,17 +16,17 @@ const articles = [
   {
     date: "2 Aug, 2021",
     title: "Reading Books Always Makes The Moments Happy",
-    image: "/public/article(1).png",
+    image: "/article(1).png",
   },
   {
     date: "2 Aug, 2021",
     title: "Reading Books Always Makes The Moments Happy",
-    image: "/public/article(2).png",
+    image: "/article(2).png",
   },
   {
     date: "2 Aug, 2021",
     title: "Reading Books Always Makes The Moments Happy",
-    image: "/public/article(3).png",
+    image: "/article(3).png",
   },
 ];
 
