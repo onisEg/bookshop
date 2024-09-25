@@ -73,6 +73,7 @@ export default function Login() {
           id="email"
           type="email"
           autoComplete="email"
+          defaultValue="anasabdo704@gmail.com"
           error={!!errors.email}
           helperText={errors.email?.message}
           sx={{
@@ -82,6 +83,15 @@ export default function Login() {
           placeholder="john@mail.com"
           {...register("email", EmailValidation)}
         />
+        <Typography
+          variant="body2"
+          sx={{
+            mt: 1,
+            color: "#757575", // لون رمادي خفيف للنص التوضيحي
+          }}
+        >
+          Email: anasabdo704@gmail.com
+        </Typography>
 
         {/* ------------------------ password ----------------------- */}
 
@@ -93,6 +103,7 @@ export default function Login() {
           id="password"
           autoComplete="password"
           label="Password"
+          defaultValue="Anas@123"
           error={!!errors.password}
           helperText={errors.password?.message}
           sx={{
@@ -102,7 +113,16 @@ export default function Login() {
           placeholder="**********"
           {...register("password", PasswordValidation)}
         />
-
+        <Typography
+          variant="body2"
+          sx={{
+            mt: 1,
+            color: "#757575", // لون رمادي خفيف للنص التوضيحي
+          }}
+        >
+          Password: Anas@123
+        </Typography>
+        {/* ------------------------ remember me and forgot password ----------------------- */}
         <Grid container alignItems="center">
           <Grid item xs>
             <FormControlLabel
