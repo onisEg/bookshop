@@ -17,7 +17,6 @@ export default function Payment() {
   const stripe = useStripe();
   const elements = useElements();
   let navigate = useNavigate();
-س
   // جلب بيانات السلة من الـ context
   const cartContext = useContext(CartContext);
 
@@ -26,7 +25,7 @@ export default function Payment() {
     return <Typography>Error: Cart context is not available.</Typography>;
   }
 
-  const { cartId, getMyBasket, loading } = cartContext; // تأكد من أن cartId موجود
+  const { cartId, getMyBasket } = cartContext;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

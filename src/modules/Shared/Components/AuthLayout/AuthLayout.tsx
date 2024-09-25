@@ -1,4 +1,4 @@
-import { Grid, Paper, Box, Typography } from "@mui/material";
+import { Grid, Paper, Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 export default function AuthLayout() {
