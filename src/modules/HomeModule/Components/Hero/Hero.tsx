@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { GetAllBooks } from "../../../../constants/END_POINTS";
 import axios from "axios";
-import "./Hero.css";
+import "./hero.css";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { toast } from "react-toastify";
