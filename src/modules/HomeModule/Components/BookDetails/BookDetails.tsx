@@ -93,7 +93,7 @@ export default function BookDetails() {
         <Grid item xs={12} md={6}>
           <Box display="flex" justifyContent="center" sx={{ my: 4 }}>
             <img
-              src={book.image || "/public/newreles2.png"}
+              src={book.image || "/newreles2.png"}
               alt={book.name || "Book Cover"}
               style={{
                 width: "100%",

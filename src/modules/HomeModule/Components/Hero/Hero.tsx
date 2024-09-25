@@ -139,7 +139,7 @@ export default function Hero() {
                       }}
                     >
                       <img
-                        src={book.image || `/public/book1.png`}
+                        src={book.image || `/book1.png`}
                         alt={book.name}
                         loading="lazy"
                         style={{

@@ -68,7 +68,7 @@ export default function Navbar() {
                   height: "50px",
                   borderRadius: "50%",
                   backgroundColor: "var(--blue-color)",
-                  backgroundImage: "url('/public/booklogo.png')",
+                  backgroundImage: "url('/booklogo.png')",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}

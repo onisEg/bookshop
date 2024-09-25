@@ -11,7 +11,7 @@ export default function AuthLayout() {
           xs={false}
           md={6}
           sx={{
-            backgroundImage: "url(/public/bookstorimg.jpg)",
+            backgroundImage: "url(/bookstorimg.jpg)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -48,11 +48,7 @@ export default function AuthLayout() {
               maxWidth: "500px",
             }}
           >
-            <img
-              src="/public/booksLogo.png"
-              alt="Logo"
-              style={{ marginBottom: 20 }}
-            />
+            <img src="/booksLogo.png" alt="Logo" style={{ marginBottom: 20 }} />
 
             <Outlet />
           </Box>

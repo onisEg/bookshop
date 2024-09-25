@@ -63,7 +63,7 @@ export default function BookDealSlider() {
               <Grid item xs={12} md={6}>
                 <Box display="flex" justifyContent="center">
                   <img
-                    src="/public/books.png"
+                    src="/books.png"
                     alt="Book Deal"
                     style={{
                       width: "400px",

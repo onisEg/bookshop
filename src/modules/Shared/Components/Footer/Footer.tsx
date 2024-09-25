@@ -27,7 +27,7 @@ const Footer = () => {
             >
               <Box
                 component="img"
-                src="/public/booklogo.png"
+                src="/booklogo.png"
                 alt="Logo"
                 sx={{ width: 60, height: 60, mb: 2 }}
               />
