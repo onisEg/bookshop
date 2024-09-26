@@ -178,7 +178,7 @@ export default function CartContextProvider(props: any) {
       // toast.success("Basket loaded successfully!");
     } catch (error: any) {
       console.error("Error fetching basket from API:", error);
-      toast.error("Failed to fetch basket.");
+      // toast.error(error);
     } finally {
       setLoading(false);
     }
@@ -263,11 +263,11 @@ export default function CartContextProvider(props: any) {
         books,
         cartId,
         total,
-        loading,
         getMyBasket,
         confirmDelete,
         setConfirmDelete,
         setLoading,
+        loading,
       }}
     >
       {props.children}

@@ -112,8 +112,11 @@ export default function CategoriesSwiper() {
           modules={[Navigation]}
           spaceBetween={40}
           breakpoints={{
+            0:{
+              slidesPerView:2
+            },
             640: {
-              slidesPerView: 2,
+              slidesPerView: 3,
             },
             768: {
               slidesPerView: 3,
@@ -129,7 +132,17 @@ export default function CategoriesSwiper() {
           {cartContext?.categories.map((cate: category, index) => (
             <SwiperSlide key={index}>
               <Box
-                sx={{ textAlign: "center", cursor: "pointer" }}
+                 sx={{
+                  textAlign: "center",
+                  cursor: "pointer",
+                  transition: "transform 0.3s, box-shadow 0.3s", 
+                  "&:hover": {
+                    transform: "scale(1.05)", 
+                    boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)", 
+                  },
+                  borderRadius: "12px", 
+                  overflow: "hidden", 
+                }}
                 onClick={() => handleCategoryClick(cate._id)}
               >
                 <img
@@ -146,7 +159,7 @@ export default function CategoriesSwiper() {
                   color="#393280"
                   mt={2}
                   textTransform="capitalize"
-                  fontSize="24px"
+                  fontSize="1rem"
                 >
                   {cate.title}
                 </Typography>

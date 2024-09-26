@@ -32,7 +32,13 @@ const articles = [
 
 export default function LatestArticles() {
   return (
-    <Box sx={{ padding: 10, textAlign: "center", bgcolor: "#F7FCFC" }}>
+    <Box
+      sx={{
+        padding: { xs: 3, md: 10 },
+        textAlign: "center",
+        bgcolor: "#F7FCFC",
+      }}
+    >
       <Typography
         variant="overline"
         sx={{ color: "#888", letterSpacing: "2px", mb: 2 }}
@@ -48,8 +54,8 @@ export default function LatestArticles() {
             left: 0,
             right: 0,
             height: "1px",
-            backgroundColor: "#E0E0E0", // لون الخط
-            zIndex: 1, // تأكد أن الخط تحت النص
+            backgroundColor: "#E0E0E0",
+            zIndex: 1,
           }}
         />
 
@@ -80,19 +86,25 @@ export default function LatestArticles() {
                 boxShadow: "none",
                 bgcolor: "transparent",
                 borderRadius: "0",
+                maxWidth: { xs: "100%", md: "345px" },
+                margin: { xs: "0 auto", md: "inherit" },
               }}
             >
               <CardMedia
                 component="img"
                 image={article.image}
                 alt={article.title}
-                sx={{}}
+                sx={{
+                  borderRadius: "8px",
+                  height: { xs: "200px", md: "250px" },
+                  objectFit: "cover",
+                }}
               />
               <CardContent sx={{ textAlign: "left", paddingTop: 3 }}>
                 <Typography
                   variant="body2"
                   textTransform={"capitalize"}
-                  fontSize={"15px"}
+                  fontSize={{ xs: "14px", md: "15px" }}
                   color="#74642F"
                 >
                   {article.date}
@@ -100,7 +112,7 @@ export default function LatestArticles() {
                 <Typography
                   variant="h6"
                   fontWeight="400"
-                  fontSize={"26px"}
+                  fontSize={{ xs: "18px", md: "26px" }}
                   gutterBottom
                   color={"#173F5F"}
                 >
@@ -147,6 +159,7 @@ export default function LatestArticles() {
           color: "#173F5F",
           borderColor: "#173F5F",
           letterSpacing: "1.6px",
+          fontSize: { xs: "10px", md: "16px" },
         }}
       >
         Read All Articles

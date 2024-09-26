@@ -18,12 +18,23 @@ import {
 } from "../../../../constants/VALIDATIONS";
 import { useContext } from "react";
 import { AuthContext } from "../../../../Context/AuthContext";
+import { CartContext } from "../../../../Context/CartContext";
+
+
 
 interface FormValues {
   email: string;
   password: string;
 }
+
 export default function Login() {
+  const cartContext = useContext(CartContext)
+  
+  if (!cartContext) {
+    console.error("cartContext is not working!");
+    return null; // or handle the case where cartContext is null
+  }
+  let { loading ,setLoading }=cartContext;
   let { saveLoginData }: any = useContext(AuthContext);
   let navigate = useNavigate();
   let {
@@ -33,16 +44,22 @@ export default function Login() {
   }: any = useForm<FormValues>({ defaultValues: { email: "", password: "" } });
 
   const onSubmit = async (data: FormValues) => {
+    setLoading(true)
+
     try {
       const response = await axios.post(AUTH_URLS.login, data);
       toast.success(response.data.message);
       localStorage.setItem("token", response.data.data.accessToken);
       saveLoginData();
       navigate("/dashbord/home");
+      setLoading(false)
     } catch (error: any) {
       toast.error(error.response.data.message);
+    }finally{
+      setLoading(false)
     }
   };
+
   return (
     <>
       <Grid sx={{ width: "100%" }}>
@@ -184,6 +201,12 @@ export default function Login() {
         >
           Register
         </Button>
+        {loading? <Typography sx={{
+          textAlign:"center"
+        }}
+        >
+         Logging in...
+        </Typography>:""}
       </Box>
     </>
   );

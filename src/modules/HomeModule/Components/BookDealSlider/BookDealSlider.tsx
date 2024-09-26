@@ -8,9 +8,9 @@ import CountdownTimer from "../CountdownTimer/CountdownTimer";
 
 export default function BookDealSlider() {
   return (
-    <Box sx={{ m: 9 }} id="BookDealSlider">
+    <Box sx={{ m: { xs: 2, md: 9 } }} id="BookDealSlider">
       <Box
-        paddingY={10}
+        paddingY={{ xs: 5, md: 10 }}
         sx={{
           backgroundColor: "#FAF5EF",
           borderRadius: "20px",
@@ -19,7 +19,7 @@ export default function BookDealSlider() {
         <Swiper
           pagination={{ clickable: true }}
           modules={[Pagination]}
-          spaceBetween={50}
+          spaceBetween={20}
           slidesPerView={1}
         >
           <SwiperSlide>
@@ -32,6 +32,7 @@ export default function BookDealSlider() {
                     fontWeight="bold"
                     color="var(--blue-color)"
                     gutterBottom
+                    sx={{ fontSize: { xs: "20px", md: "32px" } }}
                   >
                     All books are 50% off now!
                   </Typography>
@@ -41,6 +42,7 @@ export default function BookDealSlider() {
                     color="var(--blue-color)"
                     fontWeight="bold"
                     gutterBottom
+                    sx={{ fontSize: { xs: "18px", md: "28px" } }}
                   >
                     Don't miss such a deal!
                   </Typography>
@@ -48,7 +50,7 @@ export default function BookDealSlider() {
                   <Typography
                     variant="body1"
                     color="textSecondary"
-                    sx={{ marginBottom: "16px" }}
+                    sx={{ marginBottom: "16px", fontSize: { xs: "14px", md: "16px" } }}
                   >
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     eu feugiat amet, libero ipsum enim pharetra hac.
@@ -66,7 +68,8 @@ export default function BookDealSlider() {
                     src="/books.png"
                     alt="Book Deal"
                     style={{
-                      width: "400px",
+                      width: "100%",
+                      maxWidth: "400px",
                       height: "auto",
                       borderRadius: "20px",
                     }}

@@ -88,8 +88,13 @@ export default function NewReleaseBooks() {
         spaceBetween={50}
         slidesPerView={1}
         breakpoints={{
+          0:{
+            slidesPerView:2,
+            spaceBetween: 10,
+          },
           640: {
             slidesPerView: 2,
+            spaceBetween: 20,
           },
           768: {
             slidesPerView: 3,
@@ -108,7 +113,7 @@ export default function NewReleaseBooks() {
         {books.slice(0, 10).map((book: Book, index) => (
           <SwiperSlide key={index}>
             {/* استخدام مكون ProductCard */}
-            <ProductCard product={book} />
+            <ProductCard product={book}  />
           </SwiperSlide>
         ))}
       </Swiper>

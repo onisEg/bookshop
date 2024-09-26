@@ -90,7 +90,7 @@ export default function Navbar() {
                   <Typography>Home</Typography>
                 </Link>
                 <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
-               
+
                 <Link to="/dashbord/books" className="nav-link">
                   <Typography>Books</Typography>
                 </Link>
@@ -98,7 +98,6 @@ export default function Navbar() {
                 <Link to="/dashbord/new-release" className="nav-link">
                   <Typography>New Release</Typography>
                 </Link>
-              
               </Box>
             </Grid>
             <Grid item sm={3} md={2} lg={2}>
@@ -132,18 +131,24 @@ export default function Navbar() {
                       >
                         <List>
                           {[
-                            "Home",
-                         
-                            "Books",
-                            "New Release",
-                           
-                          ].map((text) => (
+                            { text: "Home", path: "/dashbord/home" },
+                            { text: "Books", path: "/dashbord/books" },
+                            {
+                              text: "New Release",
+                              path: "/dashbord/new-release",
+                            },
+                          ].map((item) => (
                             <ListItem
                               button
-                              key={text}
+                              key={item.text}
                               sx={{ textAlign: "center" }}
+                              onClick={() => {
+                                setDrawerOpen(false); 
+                                navigate(item.path); 
+                              }}
                             >
-                              <ListItemText primary={text} />
+                              
+                                <ListItemText primary={item.text} />
                             </ListItem>
                           ))}
                           <Divider />
@@ -159,7 +164,9 @@ export default function Navbar() {
                               <PersonOutlineOutlinedIcon />
                             </IconButton>
                             <IconButton color="inherit">
+                            <Badge badgeContent={totalItemsInCart} color="error">
                               <ShoppingBagOutlinedIcon />
+                            </Badge>
                             </IconButton>
                             <IconButton color="inherit">
                               <FavoriteBorderOutlinedIcon />

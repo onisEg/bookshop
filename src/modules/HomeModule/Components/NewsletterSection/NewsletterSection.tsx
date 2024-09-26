@@ -9,11 +9,11 @@ import EmailIcon from "@mui/icons-material/Email";
 
 export default function NewsletterSection() {
   return (
-    <Box sx={{ px: 10, pb: 10, bgcolor: "#FCEBEA" }}>
+    <Box sx={{ px: { xs: 3, md: 9 }, pb: 10, bgcolor: "#FCEBEA" }}>
       <Box
         sx={{
-          backgroundColor: "#ED553B", // main background color
-          paddingY: 8,
+          backgroundColor: "#ED553B",
+          paddingY: { xs: 5, md: 9 },
           textAlign: "center",
           borderRadius: "0 0 8px 8px ",
           position: "relative",
@@ -24,9 +24,11 @@ export default function NewsletterSection() {
         {/* Section Title */}
         <Typography
           variant="h3"
-          fontSize={"56px"}
           fontWeight="500"
           gutterBottom
+          sx={{
+            fontSize: { xs: "24px", md: "34px" },
+          }}
         >
           Subscibe to Our Newsletter
         </Typography>
@@ -41,19 +43,20 @@ export default function NewsletterSection() {
         <Box
           sx={{
             display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
             justifyContent: "center",
             alignItems: "center",
-            maxWidth: "500px",
+            width: "90%",
             margin: "0 auto",
             backgroundColor: "#fff",
             borderRadius: "5px",
             padding: 1,
             boxShadow: "0 3px 10px rgba(0, 0, 0, 0.1)",
             position: "absolute",
-            bottom: "-30px", // Adjust this to control how much of the box is outside the container
+            bottom: { xs: "-100px", md: "-30px" },
             left: "50%",
-            transform: "translateX(-50%)", // Center the box horizontally
-            zIndex: 2, // Ensure the input box stays above other elements
+            transform: "translateX(-50%)",
+            zIndex: 2,
           }}
         >
           <TextField
@@ -67,8 +70,10 @@ export default function NewsletterSection() {
             }}
             sx={{
               flex: 1,
+              width: { xs: "100%", sm: "auto" },
               "& .MuiOutlinedInput-root": {
-                borderRadius: "5px 0 0 5px",
+                borderRadius: { xs: "5px", sm: "5px 0 0 5px" },
+                marginBottom: { xs: 2, sm: 0 },
               },
             }}
           />
@@ -78,10 +83,11 @@ export default function NewsletterSection() {
               bgcolor: "#FF5733",
               color: "white",
               paddingX: 3,
-              paddingY: 2,
+              paddingY: { xs: 1.5, sm: 2 },
               textTransform: "uppercase",
               fontWeight: "400",
-              borderRadius: "0 8px 8px 0",
+              borderRadius: { xs: "5px", sm: "0 8px 8px 0" },
+              width: { xs: "100%", sm: "auto" },
               "&:hover": {
                 bgcolor: "#E44A20",
               },

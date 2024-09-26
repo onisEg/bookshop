@@ -83,12 +83,15 @@ export default function ProductCard({ product }: ProductCardProps) {
               textTransform: "uppercase",
               color: "white",
               fontWeight: "light",
-              fontSize: "1rem",
               marginBottom: "16px",
               padding: "10px 0",
               borderRadius: "0",
               ":hover": {
                 bgcolor: "#C24029",
+              },
+              fontSize: {
+                xs: "10px",
+                md: "22px",
               },
             }}
           >
@@ -122,6 +125,10 @@ export default function ProductCard({ product }: ProductCardProps) {
           color="var(--blue-color)"
           fontSize="22px"
           textTransform="capitalize"
+          sx={{
+            xs: "16px",
+            md: "22px",
+          }}
         >
           {product.name}
         </Typography>
