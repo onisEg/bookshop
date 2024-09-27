@@ -13,8 +13,6 @@ import CartDetails from "./modules/CartModule/Components/Cart/CartDetails";
 
 import "react-toastify/dist/ReactToastify.css";
 import About from "./modules/HomeModule/Components/About/About";
-import ContactUs from "./modules/HomeModule/Components/ContactUs/ContactUs";
-import Blog from "./modules/HomeModule/Components/Blog/Blog";
 import ProtectedRoute from "./modules/Shared/Components/ProtectedRoute/ProtectedRoute";
 import BookDetails from "./modules/HomeModule/Components/BookDetails/BookDetails";
 import ProductPage from "./modules/ListingPageModel/Components/ProductPage/ProductPage";
@@ -56,8 +54,6 @@ function App() {
         { path: "cart", element: <CartDetails /> },
         { path: "books", element: <ProductPage /> },
         { path: "about", element: <About /> },
-        { path: "contact", element: <ContactUs /> },
-        { path: "blog", element: <Blog /> },
         { path: "book/:bookId", element: <BookDetails /> },
         { path: "confirmation", element: <Confirmation /> },
       ],

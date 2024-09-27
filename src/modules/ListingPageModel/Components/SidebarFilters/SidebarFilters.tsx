@@ -9,6 +9,7 @@ import {
   Divider,
   FormControlLabel,
   Checkbox,
+  useMediaQuery,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useContext } from "react";
@@ -39,143 +40,193 @@ export default function SidebarFilters({
   onCategoryChange,
 }: SidebarFiltersProps) {
   let cartContext = useContext(CartContext);
+  // استخدام useMediaQuery للتحقق من حجم الشاشة
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
     <Box
       sx={{
         padding: 2,
         backgroundColor: "#fff",
         borderRadius: 2,
+        ...(isMobile && { padding: 1 }),
       }}
     >
       {/* Filtering Accords */}
-      <Accordion disableGutters defaultExpanded sx={{ boxShadow: "none" }}>
-        <AccordionSummary
-          expandIcon={
-            <ExpandMoreIcon
-              sx={{
-                color: "#393280",
-              }}
-            />
-          }
-          sx={{ paddingX: 2 }}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          ...(isMobile && { flexDirection: "row", gap: 1 }),
+        }}
+      >
+        <Accordion
+          disableGutters
+          defaultExpanded={false}
+          sx={{
+            boxShadow: "none",
+            ...(isMobile && { maxWidth: "50%" }),
+          }}
         >
-          <Typography
-            variant="body1"
-            sx={{ fontWeight: "bold", color: "#393280" }}
-          >
-            Price
-          </Typography>
-        </AccordionSummary>
-        <Divider sx={{ mx: 2, mb: 2, bgcolor: "#E0E0E0" }} />
-        <AccordionDetails>
-          {/* Price Filter */}
-          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-            <TextField
-              id="min-price"
-              size="small"
-              variant="outlined"
-              label="Min $"
-              value={minPrice || ""}
-              onChange={(e) =>
-                setMinPrice(
-                  e.target.value === "" ? undefined : Number(e.target.value)
-                )
-              }
-              sx={{ flex: 1, mr: 1, color: "#393280" }}
-            />
-            <Typography variant="body2" color="textSecondary">
-              to
-            </Typography>
-            <TextField
-              id="max-price"
-              size="small"
-              label="Max $"
-              variant="outlined"
-              sx={{ flex: 1, ml: 1 }}
-              value={maxPrice || ""}
-              onChange={(e) =>
-                setMaxPrice(
-                  e.target.value === "" ? undefined : Number(e.target.value)
-                )
-              }
-            />
-          </Box>
-        </AccordionDetails>
-      </Accordion>
-      {/* Category Accordion */}
-      <Accordion disableGutters defaultExpanded sx={{ boxShadow: "none" }}>
-        <AccordionSummary
-          expandIcon={
-            <ExpandMoreIcon
-              sx={{
-                color: "#393280",
-              }}
-            />
-          }
-          sx={{ paddingX: 2 }}
-        >
-          <Typography
-            variant="body1"
-            sx={{ fontWeight: "bold", color: "#393280" }}
-          >
-            Category
-          </Typography>
-        </AccordionSummary>
-        <Divider sx={{ mx: 2, mb: 2, bgcolor: "#E0E0E0" }} />
-        <AccordionDetails>
-          {cartContext?.categories && cartContext.categories.length > 0 ? (
-            cartContext.categories.map((category: Category) => (
-              <FormControlLabel
+          <AccordionSummary
+          
+            expandIcon={
+              <ExpandMoreIcon
                 sx={{
-                  display: "flex",
-                  color: "#393280 !important",
+                  color: "#393280",
                 }}
-                key={category._id}
-                control={
-                  <Checkbox
-                    onChange={(event) =>
-                      onCategoryChange(category._id, event.target.checked)
-                    }
+              />
+            }
+            sx={{ paddingX: 2, }}
+          >
+            <Typography
+              variant="body1"
+              sx={{ fontWeight: "bold", color: "#393280" }}
+            >
+              Price
+            </Typography>
+          </AccordionSummary>
+
+          <Divider sx={{ mx: 2, mb: 2, bgcolor: "#E0E0E0" }} />
+          <AccordionDetails>
+            {/* Price Filter */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                mb: 2,
+
+                ...(isMobile && {
+                  flexDirection: "column",
+                  alignItems: "stretch",
+                }),
+              }}
+            >
+              <TextField
+                id="min-price"
+                size="small"
+                variant="outlined"
+                label="Min $"
+                value={minPrice || ""}
+                onChange={(e) =>
+                  setMinPrice(
+                    e.target.value === "" ? undefined : Number(e.target.value)
+                  )
+                }
+                sx={{
+                  flex: 1,
+                  mr: 1,
+                  color: "#393280",
+                  ...(isMobile && { width: "100%" }),
+                }}
+              />
+              <Typography variant="body2" color="textSecondary">
+                to
+              </Typography>
+              <TextField
+                id="max-price"
+                size="small"
+                label="Max $"
+                variant="outlined"
+                sx={{ flex: 1, ml: 1, ...(isMobile && { ml: 0 }) }}
+                value={maxPrice || ""}
+                onChange={(e) =>
+                  setMaxPrice(
+                    e.target.value === "" ? undefined : Number(e.target.value)
+                  )
+                }
+              />
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+
+        {/* Category Accordion */}
+        <Accordion
+        
+          disableGutters
+          defaultExpanded={false}
+          sx={{  boxShadow: "none", ...(isMobile && { maxWidth: "50%" }) }}
+        >
+          <AccordionSummary
+          sx={{
+
+          }}
+            expandIcon={
+              <ExpandMoreIcon
+                sx={{
+                  color: "#393280",
+
+                }}
+              />
+            }
+            sx={{ paddingX: 2 }}
+          >
+            <Typography
+              variant="body1"
+              sx={{ fontWeight: "bold", color: "#393280" }}
+            >
+              Category
+            </Typography>
+          </AccordionSummary>
+          <Divider sx={{ mx: 2, mb: 2, bgcolor: "#E0E0E0" }} />
+          <AccordionDetails>
+            {cartContext?.categories && cartContext.categories.length > 0 ? (
+              cartContext.categories.map((category: Category) => (
+                <FormControlLabel
+                  sx={{
+                    display: "flex",
+                    color: "#393280 !important",
+                  }}
+                  key={category._id}
+                  control={
+                    <Checkbox
+                      onChange={(event) =>
+                        onCategoryChange(category._id, event.target.checked)
+                      }
+                    />
+                  }
+                  label={category.title}
+                />
+              ))
+            ) : (
+              <Typography variant="body2" color="textSecondary">
+                No categories available
+              </Typography>
+            )}
+          </AccordionDetails>
+        </Accordion>
+      </Box>
+
+      {/* Divider between sections */}
+
+      {!isMobile &&
+        ["Product type", "Availability", "Brand", "Color", "Material"].map(
+          (filter) => (
+            <Accordion key={filter} disableGutters sx={{ boxShadow: "none" }}>
+              <AccordionSummary
+                expandIcon={
+                  <ExpandMoreIcon
+                    sx={{
+                      color: "#393280",
+                    }}
                   />
                 }
-                label={category.title}
-              />
-            ))
-          ) : (
-            <Typography variant="body2" color="textSecondary">
-              No categories available
-            </Typography>
-          )}
-        </AccordionDetails>
-      </Accordion>
-      {/* Divider between sections */}
-      {["Product type", "Availability", "Brand", "Color", "Material"].map(
-        (filter) => (
-          <Accordion key={filter} disableGutters sx={{ boxShadow: "none" }}>
-            <AccordionSummary
-              expandIcon={
-                <ExpandMoreIcon
-                  sx={{
-                    color: "#393280",
-                  }}
-                />
-              }
-              sx={{ paddingX: 2 }}
-            >
-              <Typography
-                variant="body1"
-                sx={{ fontWeight: "bold", color: "#393280" }}
+                sx={{ paddingX: 2 }}
               >
-                {filter}
-              </Typography>
-            </AccordionSummary>
-            <Divider sx={{ mx: 2, mb: 2, bgcolor: "#E0E0E0" }} />
-            <AccordionDetails>
-              <Typography variant="body2">Options for {filter}</Typography>
-            </AccordionDetails>
-          </Accordion>
-        )
-      )}
+                <Typography
+                  variant="body1"
+                  sx={{ fontWeight: "bold", color: "#393280" }}
+                >
+                  {filter}
+                </Typography>
+              </AccordionSummary>
+              <Divider sx={{ mx: 2, mb: 2, bgcolor: "#E0E0E0" }} />
+              <AccordionDetails>
+                <Typography variant="body2">Options for {filter}</Typography>
+              </AccordionDetails>
+            </Accordion>
+          )
+        )}
 
       <Button
         variant="contained"
