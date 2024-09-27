@@ -62,7 +62,7 @@ export default function SidebarFilters({
       >
         <Accordion
           disableGutters
-          defaultExpanded={false}
+          defaultExpanded={true}
           sx={{
             boxShadow: "none",
             ...(isMobile && { maxWidth: "50%" }),
@@ -144,18 +144,14 @@ export default function SidebarFilters({
         <Accordion
         
           disableGutters
-          defaultExpanded={false}
+          defaultExpanded={true}
           sx={{  boxShadow: "none", ...(isMobile && { maxWidth: "50%" }) }}
         >
-          <AccordionSummary
-          sx={{
-
-          }}
+          <AccordionSummary 
             expandIcon={
               <ExpandMoreIcon
                 sx={{
                   color: "#393280",
-
                 }}
               />
             }
@@ -197,36 +193,7 @@ export default function SidebarFilters({
         </Accordion>
       </Box>
 
-      {/* Divider between sections */}
-
-      {!isMobile &&
-        ["Product type", "Availability", "Brand", "Color", "Material"].map(
-          (filter) => (
-            <Accordion key={filter} disableGutters sx={{ boxShadow: "none" }}>
-              <AccordionSummary
-                expandIcon={
-                  <ExpandMoreIcon
-                    sx={{
-                      color: "#393280",
-                    }}
-                  />
-                }
-                sx={{ paddingX: 2 }}
-              >
-                <Typography
-                  variant="body1"
-                  sx={{ fontWeight: "bold", color: "#393280" }}
-                >
-                  {filter}
-                </Typography>
-              </AccordionSummary>
-              <Divider sx={{ mx: 2, mb: 2, bgcolor: "#E0E0E0" }} />
-              <AccordionDetails>
-                <Typography variant="body2">Options for {filter}</Typography>
-              </AccordionDetails>
-            </Accordion>
-          )
-        )}
+  
 
       <Button
         variant="contained"

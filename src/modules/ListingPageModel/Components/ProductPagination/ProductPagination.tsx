@@ -1,5 +1,5 @@
 // components/ProductPagination.tsx
-import { Box, Pagination, PaginationItem } from "@mui/material";
+import { Box, Pagination, PaginationItem, useMediaQuery } from "@mui/material";
 import { ArrowForward, ArrowBack } from "@mui/icons-material";
 interface ProductPaginationProps {
   currentPage: number;
@@ -14,6 +14,7 @@ export default function ProductPagination({
   itemsPerPage,
   onPageChange,
 }: ProductPaginationProps) {
+  const isMobile = useMediaQuery("(max-width:600px)")
   return (
     <Box sx={{ display: "flex", justifyContent: "center", my: 5 }}>
       <Pagination
@@ -38,8 +39,8 @@ export default function ProductPagination({
           ".MuiPaginationItem-root": {
             border: "1px solid #E5E3DA",
             borderRadius: "50%",
-            width: "48px",
-            height: "48px",
+            width: isMobile?"20px": "48px",
+            height: isMobile?"32px": "48px",
           },
         }}
       />

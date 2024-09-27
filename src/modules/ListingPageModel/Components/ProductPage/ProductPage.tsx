@@ -6,6 +6,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  useMediaQuery,
 } from "@mui/material";
 import TopSection from "../TopSection/TopSection";
 import SidebarFilters from "../SidebarFilters/SidebarFilters";
@@ -26,7 +27,7 @@ export default function ProductPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   let cartContext = useContext(CartContext);
   const [searchParams] = useSearchParams();
-
+  const isMobile = useMediaQuery("(max-width:600px)");
   useEffect(() => {
     const categoryFromParams = searchParams.get("category");
     if (categoryFromParams) {
@@ -137,8 +138,8 @@ export default function ProductPage() {
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
-                mb: 4,
                 alignItems: "center",
+                mb: 4,
               }}
             >
               <FormControl variant="standard" sx={{ width: 200 }}>
@@ -150,6 +151,7 @@ export default function ProductPage() {
                   sx={{
                     color: "#393280",
                     fontWeight: "600",
+                    fontSize:isMobile?"":""
                   }}
                 >
                   <MenuItem value="alphabetical">Alphabetically, A-Z</MenuItem>
@@ -157,7 +159,15 @@ export default function ProductPage() {
                   <MenuItem value="price-desc">Price: High to Low</MenuItem>
                 </Select>
               </FormControl>
-              <Typography variant="body1" color="#393280" fontWeight="600">
+              <Typography
+                variant="body1"
+                color="#393280"
+                fontWeight="600"
+                sx={{
+                  fontSize: isMobile ? ".8rem" : "1rem",
+                  textAlign: isMobile ? "center":"start",
+                }}
+              >
                 Showing {indexOfFirstProduct + 1}-
                 {Math.min(indexOfLastProduct, filteredProducts.length)} of{" "}
                 {filteredProducts.length} results
@@ -172,9 +182,9 @@ export default function ProductPage() {
                   onChange={handleItemsToShowChange}
                   label="Show"
                 >
+                  <MenuItem value={8}>8</MenuItem>
                   <MenuItem value={12}>12</MenuItem>
                   <MenuItem value={24}>24</MenuItem>
-                  <MenuItem value={36}>36</MenuItem>
                 </Select>
               </FormControl>
             </Box>
