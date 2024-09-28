@@ -113,7 +113,8 @@ export default function CartContextProvider(props: any) {
     try {
       // التحقق من أن الكمية الجديدة أكبر من 0
       if (newQuantity <= 0) {
-        toast.error("Quantity must be at least 1.");
+        await removeFromCart(productId);
+        setLoading(false);
         return;
       }
 
