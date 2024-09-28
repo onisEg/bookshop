@@ -54,7 +54,6 @@ function App() {
         { path: "cart", element: <CartDetails /> },
         { path: "books", element: <ProductPage /> },
         { path: "about", element: <About /> },
-
         { path: "book/:bookId", element: <BookDetails /> },
         { path: "confirmation", element: <Confirmation /> },
       ],
