@@ -109,6 +109,19 @@ export default function Navbar() {
                 }}
               >
                 <Box sx={{ display: { xs: "block", sm: "none" } }}>
+                  {/* IconButton for Cart in Mobile */}
+                  <IconButton
+                    sx={{
+                      mr: 2,
+                    }}
+                    color="inherit"
+                    onClick={() => navigate("/dashbord/cart")}
+                  >
+                    <Badge badgeContent={totalItemsInCart} color="error">
+                      <ShoppingBagOutlinedIcon />
+                    </Badge>
+                  </IconButton>
+                  {/* IconButton for Drawer Menu */}
                   <IconButton
                     edge="start"
                     color="inherit"
@@ -143,12 +156,11 @@ export default function Navbar() {
                               key={item.text}
                               sx={{ textAlign: "center" }}
                               onClick={() => {
-                                setDrawerOpen(false); 
-                                navigate(item.path); 
+                                setDrawerOpen(false);
+                                navigate(item.path);
                               }}
                             >
-                              
-                                <ListItemText primary={item.text} />
+                              <ListItemText primary={item.text} />
                             </ListItem>
                           ))}
                           <Divider />
@@ -164,9 +176,12 @@ export default function Navbar() {
                               <PersonOutlineOutlinedIcon />
                             </IconButton>
                             <IconButton color="inherit">
-                            <Badge badgeContent={totalItemsInCart} color="error">
-                              <ShoppingBagOutlinedIcon />
-                            </Badge>
+                              <Badge
+                                badgeContent={totalItemsInCart}
+                                color="error"
+                              >
+                                <ShoppingBagOutlinedIcon />
+                              </Badge>
                             </IconButton>
                             <IconButton color="inherit">
                               <FavoriteBorderOutlinedIcon />

@@ -11,6 +11,7 @@ import {
   Divider,
   TextField,
   IconButton,
+  useMediaQuery,
 } from "@mui/material";
 import {
   Dialog,
@@ -30,6 +31,7 @@ import Payment from "../Payment/Payment";
 
 export default function CartDetails() {
   const cartContext = useContext(CartContext);
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   // let navigate = useNavigate();
   if (!cartContext) {
@@ -67,7 +69,7 @@ export default function CartDetails() {
       const bookDetails = books.find((book) => book.id === item.book);
       if (!bookDetails) {
         // console.error(`Book not found for ID ${item.book}`);
-        return total; // إذا لم يتم العثور على الكتاب، تجاهل هذا العنصر
+        return total;
       }
       return total + bookDetails.price * item.quantity;
     }, 0);
@@ -94,74 +96,80 @@ export default function CartDetails() {
   return (
     <>
       <TopSection pageTitle="Shopping Cart" currentPath="Home" />
-      <Box sx={{ padding: 8, paddingTop: 2 }}>
-        <Grid container mt={4}>
+      <Box sx={{ padding: isMobile ? 2 : 8, paddingTop: 0 }}>
+        <Grid container mt={4} spacing={isMobile ? 2 : 4}>
           {/* قائمة المنتجات */}
           <Grid item xs={12} md={8}>
-            <Box
-              sx={{
-                borderColor: "#ddd", // لون الحدود المخفف
-                display: "flex",
-                border: 1,
-                padding: 3, // زيادة التباعد الداخلي لتحسين المظهر
-                mx: 2, // تقليل الهوامش الجانبية
-                px: 6, // تقليل التباعد الداخلي داخل المحتوى
-                mb: 4,
-                borderRadius: 2, // زيادة تدوير الحواف لإضفاء مظهر عصري
-                bgcolor: "#FF6F61", // لون الخلفية الحديث
-                color: "#fff", // لون النص الأبيض ليتناسب مع الخلفية
-                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // إضافة ظل خفيف لإبراز الجزء
-              }}
-            >
-              <Typography
-                width="50%"
-                variant="h5"
-                sx={{
-                  fontWeight: "bold", // Bold for the book title
-                  fontSize: "1.2rem", // Slightly larger font size
-                }}
-              >
-                Book
-              </Typography>
+            {!isMobile && (
               <Box
-                display="flex"
-                justifyContent="space-evenly"
-                flexGrow={1}
                 sx={{
-                  alignItems: "center",
+                  borderColor: "#ddd",
+                  display: "flex",
+                  border: 1,
+                  padding: isMobile ? 2 : 3,
+                  mx: 2,
+                  px: isMobile ? 2 : 6,
+                  mb: 4,
+                  borderRadius: 2,
+                  bgcolor: "#FF6F61",
+                  color: "#fff",
+                  boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // إضافة ظل خفيف لإبراز الجزء
+                  flexDirection: isMobile ? "column" : "row",
                 }}
               >
                 <Typography
-                  variant="h6"
+                  width={isMobile ? "100%" : "50%"}
+                  variant="h5"
                   sx={{
-                    fontSize: "1rem",
-                    textAlign: "center", // Center-align the text
+                    fontWeight: "bold", // Bold for the book title
+                    fontSize: "1.2rem", // Slightly larger font size
+                    textAlign: isMobile ? "center" : "left",
                   }}
                 >
-                  Quantity
+                  Book
                 </Typography>
-                <Typography
-                  variant="h6"
+                <Box
+                  display="flex"
+                  justifyContent={isMobile ? "space-around" : "space-evenly"}
+                  flexGrow={1}
                   sx={{
-                    fontSize: "1rem",
-                    textAlign: "center", // Center-align the text
+                    alignItems: "center",
+                    flexDirection: isMobile ? "column" : "row",
+                    textAlign: "center",
                   }}
                 >
-                  Price
-                </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontSize: "1rem",
+                      textAlign: "center", // Center-align the text
+                    }}
+                  >
+                    Quantity
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontSize: "1rem",
+                      textAlign: "center", // Center-align the text
+                    }}
+                  >
+                    Price
+                  </Typography>
 
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontSize: "1rem",
-                    textAlign: "center", // Center-align the text
-                    color: "#F5F5F5", // Lighter text for Delete
-                  }}
-                >
-                  Delete
-                </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontSize: "1rem",
+                      textAlign: "center", // Center-align the text
+                      color: "#F5F5F5", // Lighter text for Delete
+                    }}
+                  >
+                    Delete
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
+            )}
             <Grid
               rowSpacing={2}
               sx={{
@@ -195,18 +203,194 @@ export default function CartDetails() {
                     );
                   }
                   const itemSubtotal = bookDetails.price * item.quantity;
-                  return (
+                  return isMobile ? (
+                    <Card
+                      key={index}
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        mb: 2,
+                        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                        bgcolor: "#fff",
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                        border: "1px solid #ddd",
+                        p: 2,
+                      }}
+                    >
+                      {/* Image Section */}
+                      <CardMedia
+                        component="img"
+                        image={bookDetails.image}
+                        alt={bookDetails.name}
+                        sx={{
+                          width: "100%", // عرض كامل للصورة
+                          height: "100%", // ارتفاع ثابت للصورة
+                          objectFit: "cover", // تكبير الصورة لتناسب الكارت
+                          borderRadius: "8px", // حواف مدورة للصورة
+                          mb: 2, // مسافة بين الصورة والمحتوى
+                        }}
+                      />
+
+                      {/* Content Section */}
+                      <CardContent
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 1.5,
+                        }}
+                      >
+                        {/* Book Info */}
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            fontWeight: "bold",
+                            mb: 1,
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                            width: "100%",
+                          }}
+                        >
+                          {bookDetails.name || "Book name"}
+                        </Typography>
+                        <Typography variant="body2" sx={{ color: "#757575" }}>
+                          By {bookDetails.author || "Unknown Author"}
+                        </Typography>
+
+                        {/* Quantity Controls Section */}
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            mt: 1,
+                          }}
+                        >
+                          {/* Quantity Controls */}
+                          <Box display="flex" alignItems="center">
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: "bold", mr: 1 }}
+                            >
+                              Quantity:
+                            </Typography>
+                            <IconButton
+                              onClick={() =>
+                                updateCartItemQuantity(
+                                  item.book,
+                                  item.quantity - 1
+                                )
+                              }
+                              sx={{
+                                bgcolor: "#fa8072",
+                                color: "#fff",
+                                borderRadius: 1,
+                                ":hover": { bgcolor: "#E53935" },
+                                width: 30,
+                                height: 30,
+                              }}
+                            >
+                              <Remove />
+                            </IconButton>
+                            <TextField
+                              size="small"
+                              value={item.quantity}
+                              onChange={(e) => {
+                                const newQuantity = parseInt(e.target.value);
+                                if (newQuantity >= 1) {
+                                  updateCartItemQuantity(
+                                    item.book,
+                                    newQuantity
+                                  );
+                                }
+                              }}
+                              sx={{
+                                width: 50,
+                                mx: 1,
+                                textAlign: "center",
+                              }}
+                              inputProps={{
+                                style: { textAlign: "center" },
+                                min: 1,
+                              }}
+                            />
+                            <IconButton
+                              onClick={() =>
+                                updateCartItemQuantity(
+                                  item.book,
+                                  item.quantity + 1
+                                )
+                              }
+                              sx={{
+                                bgcolor: "#fa8072",
+                                color: "#fff",
+                                borderRadius: 1,
+                                ":hover": { bgcolor: "#394280" },
+                                width: 30,
+                                height: 30,
+                              }}
+                            >
+                              <Add />
+                            </IconButton>
+                          </Box>
+                        </Box>
+                        {/* Price Section */}
+                        <Typography
+                          variant="h5"
+                          sx={{ fontWeight: "bold", color: "#333" }}
+                        >
+                          ${bookDetails.price.toFixed(2)}
+                        </Typography>
+                      </CardContent>
+
+                      <Divider sx={{ my: 1 }} />
+
+                      {/* Total Order Section */}
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        px={2}
+                        py={1}
+                      >
+                        <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                          Total Order ({item.quantity}):
+                        </Typography>
+                        <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                          ${itemSubtotal.toFixed(2)}
+                        </Typography>
+                      </Box>
+
+                      {/* Delete Button */}
+                      <Box display="flex" justifyContent="center" mt={2}>
+                        <Button
+                          color="error"
+                          variant="outlined"
+                          onClick={() =>
+                            handleOpenDeleteConfirm(
+                              item.book,
+                              bookDetails?.name || "Product"
+                            )
+                          }
+                        >
+                          <DeleteOutline sx={{ mr: 1 }} />
+                          Remove
+                        </Button>
+                      </Box>
+                    </Card>
+                  ) : (
                     <Card
                       key={bookDetails.id || index}
                       sx={{
                         display: "flex",
+                        flexDirection: isMobile ? "column" : "row",
                         mb: 2,
-                        mr: 3,
                         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)", // Added a soft shadow
                         bgcolor: "#fff", // Changed background to white
                         borderRadius: "8px", // Rounded the edges
                         overflow: "hidden", // Ensure image fits within the card
                         border: "1px solid #e0e0e0", // Border for better structure
+                        p: isMobile ? 2 : 0,
                       }}
                     >
                       <CardMedia
@@ -214,10 +398,11 @@ export default function CartDetails() {
                         image={bookDetails.image}
                         alt={item.name}
                         sx={{
-                          width: 120,
+                          width: isMobile ? "100%" : 120,
                           height: 160, // Fixed height to ensure consistency in the layout
                           objectFit: "cover", // Ensures the image scales well
-                          borderRight: "1px solid #e0e0e0", // Border between image and content
+                          borderRight: isMobile ? "none" : "1px solid #e0e0e0",
+                          mb: isMobile ? 2 : 0,
                         }}
                       />
                       <CardContent
@@ -226,11 +411,18 @@ export default function CartDetails() {
                           justifyContent: "space-between", // Ensure even spacing between items
                           alignItems: "center",
                           flexGrow: 1,
-                          px: 3, // Added horizontal padding for better spacing
+                          px: isMobile ? 1 : 3,
+                          gap: isMobile ? 2 : 0,
+                          textAlign: "center",
                         }}
                       >
                         {/* Book Information Section */}
-                        <Box sx={{ flex: "1", mr: 2 }}>
+                        <Box
+                          sx={{
+                            flex: "1",
+                            textAlign: isMobile ? "center" : "left",
+                          }}
+                        >
                           <Typography
                             variant="h6"
                             sx={{ fontWeight: "bold", mb: 1 }}
@@ -248,7 +440,8 @@ export default function CartDetails() {
                             alignItems: "center",
                             justifyContent: "center", // Center align elements
                             gap: 1, // Uniform gap between elements
-                            minWidth: "200px", // Ensure the controls section has a defined width
+                            minWidth: isMobile ? "100%" : "200px",
+                            flexDirection: isMobile ? "column" : "row",
                           }}
                         >
                           <IconButton
@@ -317,8 +510,8 @@ export default function CartDetails() {
                           sx={{
                             display: "flex",
                             flexDirection: "column",
-                            alignItems: "center",
-                            minWidth: "150px", // Ensure the price section has a defined width
+                            alignItems: isMobile ? "center" : "flex-start",
+                            minWidth: isMobile ? "100%" : "150px",
                           }}
                         >
                           <Typography
@@ -360,7 +553,6 @@ export default function CartDetails() {
                 })
               )}
             </Grid>
-            `
           </Grid>
 
           {/* المجموع الكلي */}
