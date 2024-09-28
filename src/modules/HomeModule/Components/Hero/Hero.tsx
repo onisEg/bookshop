@@ -8,7 +8,7 @@ import { GetAllBooks } from "../../../../constants/END_POINTS";
 import axios from "axios";
 import "./hero.css";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { Box, Typography, Button, Grid } from "@mui/material";
+import { Box, Typography, Button, Grid, useMediaQuery } from "@mui/material";
 import { toast } from "react-toastify";
 
 interface Book {
@@ -24,6 +24,7 @@ interface Book {
 }
 
 export default function Hero() {
+  let isMobile = useMediaQuery("(max-width:600px)");
   const [books, setBooks] = useState<Book[]>([]);
 
   const allBooks = async () => {
@@ -156,18 +157,24 @@ export default function Hero() {
             </SwiperSlide>
           ))}
           {/* أزرار التنقل المخصصة */}
-          <div className="swiper-button-prev-custom">
-            <ArrowRightAltIcon
-              sx={{
-                transform: "rotate(180deg)",
-                color: "#FF5733",
-                fontSize: "2rem",
-              }}
-            />
-          </div>
-          <div className="swiper-button-next-custom">
-            <ArrowRightAltIcon sx={{ color: "#FF5733", fontSize: "2rem" }} />
-          </div>
+          {!isMobile && (
+            <>
+              <div className="swiper-button-prev-custom">
+                <ArrowRightAltIcon
+                  sx={{
+                    transform: "rotate(180deg)",
+                    color: "#FF5733",
+                    fontSize: "2rem",
+                  }}
+                />
+              </div>
+              <div className="swiper-button-next-custom">
+                <ArrowRightAltIcon
+                  sx={{ color: "#FF5733", fontSize: "2rem" }}
+                />
+              </div>
+            </>
+          )}
         </Swiper>
       </div>
     </>

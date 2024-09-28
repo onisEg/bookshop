@@ -113,8 +113,7 @@ export default function CartContextProvider(props: any) {
     try {
       // التحقق من أن الكمية الجديدة أكبر من 0
       if (newQuantity <= 0) {
-        await removeFromCart(productId);
-        setLoading(false);
+        toast.error("Quantity must be at least 1.");
         return;
       }
 
@@ -179,7 +178,7 @@ export default function CartContextProvider(props: any) {
       // toast.success("Basket loaded successfully!");
     } catch (error: any) {
       console.error("Error fetching basket from API:", error);
-      // toast.error(error);
+      toast.error("Failed to fetch basket.");
     } finally {
       setLoading(false);
     }
@@ -264,11 +263,11 @@ export default function CartContextProvider(props: any) {
         books,
         cartId,
         total,
+        loading,
         getMyBasket,
         confirmDelete,
         setConfirmDelete,
         setLoading,
-        loading,
       }}
     >
       {props.children}

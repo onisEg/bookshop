@@ -1,17 +1,17 @@
 export const TestImages = [
-  "/newReles1.png",
-  "/newreles2.png",
-  "/newReles3.png",
-  "/newreles4.jpg",
-  "/newReles5.jpg",
-  "/newReles6.jpg",
-  "/newReles7.jpg",
-  "/newReles8.jpg",
+  "/public/newReles1.png",
+  "/public/newreles2.png",
+  "/public/newReles3.png",
+  "/public/newreles4.jpg",
+  "/public/newReles5.jpg",
+  "/public/newReles6.jpg",
+  "/public/newReles7.jpg",
+  "/public/newReles8.jpg",
 
 ];
 
 export const CatImages = [
-  "/catBook1.jpg",
-  "/catBook2.jpg",
-  "/catBook3.jpg",
+  "/public/catBook1.jpg",
+  "/public/catBook2.jpg",
+  "/public/catBook3.jpg",
 ];
