@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, useMediaQuery } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
@@ -23,6 +23,7 @@ interface Book {
 }
 
 export default function NewReleaseBooks() {
+  let isMobile = useMediaQuery("(max-width:600px)");
   let navigate = useNavigate();
   const cartContext = useContext(CartContext);
   if (!cartContext) {
@@ -31,7 +32,10 @@ export default function NewReleaseBooks() {
   const { books } = cartContext;
 
   return (
-    <Box id="NewRelease" sx={{ padding: 9, backgroundColor: "#FAF5EF" }}>
+    <Box
+      id="NewRelease"
+      sx={{ padding: isMobile ? 2 : 9, backgroundColor: "#FAF5EF" }}
+    >
       <Box sx={{ textAlign: "center", mb: 4 }}>
         <Typography
           variant="overline"
@@ -88,8 +92,8 @@ export default function NewReleaseBooks() {
         spaceBetween={50}
         slidesPerView={1}
         breakpoints={{
-          0:{
-            slidesPerView:2,
+          0: {
+            slidesPerView: 2,
             spaceBetween: 10,
           },
           640: {
@@ -107,13 +111,13 @@ export default function NewReleaseBooks() {
           },
           1600: {
             slidesPerView: 6,
-          }
+          },
         }}
       >
         {books.slice(0, 10).map((book: Book, index) => (
           <SwiperSlide key={index}>
             {/* استخدام مكون ProductCard */}
-            <ProductCard product={book}  />
+            <ProductCard product={book} />
           </SwiperSlide>
         ))}
       </Swiper>
