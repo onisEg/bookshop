@@ -121,7 +121,7 @@ export default function ProductPage() {
   return (
     <>
       <TopSection currentPath="Home" pageTitle="Books" />
-      <Box sx={{ padding: 4 }}>
+      <Box sx={{ padding: !isMobile ? 4 : 2 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={3}>
             <SidebarFilters
@@ -151,7 +151,7 @@ export default function ProductPage() {
                   sx={{
                     color: "#393280",
                     fontWeight: "600",
-                    fontSize:isMobile?"":""
+                    fontSize: isMobile ? "" : "",
                   }}
                 >
                   <MenuItem value="alphabetical">Alphabetically, A-Z</MenuItem>
@@ -165,7 +165,7 @@ export default function ProductPage() {
                 fontWeight="600"
                 sx={{
                   fontSize: isMobile ? ".8rem" : "1rem",
-                  textAlign: isMobile ? "center":"start",
+                  textAlign: isMobile ? "center" : "start",
                 }}
               >
                 Showing {indexOfFirstProduct + 1}-

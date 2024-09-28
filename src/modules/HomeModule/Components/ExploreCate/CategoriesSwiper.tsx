@@ -1,4 +1,11 @@
-import { Box, Typography, Button, IconButton, Grid } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  IconButton,
+  Grid,
+  useMediaQuery,
+} from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,7 +22,9 @@ interface category {
   title: string;
   image: string;
 }
+
 export default function CategoriesSwiper() {
+  const isMobile = useMediaQuery("(max-width:600px)");
   let cartContext = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -25,7 +34,7 @@ export default function CategoriesSwiper() {
 
   return (
     <div>
-      <Box sx={{ padding: 6, fontFamily: "inter" }}>
+      <Box sx={{ padding: !isMobile ? 6 : 2, fontFamily: "inter" }}>
         <Grid
           container
           alignItems="center"
@@ -38,7 +47,7 @@ export default function CategoriesSwiper() {
                 <Typography
                   // variant="overline"
                   sx={{
-                    width: "33px",
+                    width: isMobile ? "23px" : "33px",
                     height: "2px",
                     background: "var(--orange-color)",
                   }}
@@ -47,11 +56,17 @@ export default function CategoriesSwiper() {
                   variant="body1"
                   fontWeight="blod"
                   color="var(--orange-color)"
+                  fontSize={isMobile ? 14 : 18}
                 >
                   Categories
                 </Typography>
               </Grid>
-              <Typography variant="h4" fontWeight="bold" color="secondary">
+              <Typography
+                fontSize={isMobile ? 20 : 30}
+                variant="h4"
+                fontWeight="bold"
+                color="secondary"
+              >
                 Explore our Top Categories
               </Typography>
             </Box>
@@ -112,8 +127,8 @@ export default function CategoriesSwiper() {
           modules={[Navigation]}
           spaceBetween={40}
           breakpoints={{
-            0:{
-              slidesPerView:2
+            0: {
+              slidesPerView: 2,
             },
             640: {
               slidesPerView: 3,
@@ -132,16 +147,16 @@ export default function CategoriesSwiper() {
           {cartContext?.categories.map((cate: category, index) => (
             <SwiperSlide key={index}>
               <Box
-                 sx={{
+                sx={{
                   textAlign: "center",
                   cursor: "pointer",
-                  transition: "transform 0.3s, box-shadow 0.3s", 
+                  transition: "transform 0.3s, box-shadow 0.3s",
                   "&:hover": {
-                    transform: "scale(1.05)", 
-                    boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)", 
+                    transform: "scale(1.05)",
+                    boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
                   },
-                  borderRadius: "12px", 
-                  overflow: "hidden", 
+                  borderRadius: "12px",
+                  overflow: "hidden",
                 }}
                 onClick={() => handleCategoryClick(cate._id)}
               >

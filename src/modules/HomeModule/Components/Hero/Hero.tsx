@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -10,6 +10,7 @@ import "./hero.css";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Box, Typography, Button, Grid, useMediaQuery } from "@mui/material";
 import { toast } from "react-toastify";
+import { CartContext } from "../../../../Context/CartContext";
 
 interface Book {
   auther: string;
@@ -24,22 +25,9 @@ interface Book {
 }
 
 export default function Hero() {
+  const cartContext = useContext(CartContext);
+  const books = cartContext ? cartContext.books.slice(0, 3) : [];
   let isMobile = useMediaQuery("(max-width:600px)");
-  const [books, setBooks] = useState<Book[]>([]);
-
-  const allBooks = async () => {
-    try {
-      const response = await axios.get(`${GetAllBooks}?limit=3`);
-      setBooks(response.data.data);
-    } catch (error: any) {
-      console.error("Error fetching books", error);
-      toast.error(error.response.data.message);
-    }
-  };
-
-  useEffect(() => {
-    allBooks();
-  }, []);
 
   return (
     <>
