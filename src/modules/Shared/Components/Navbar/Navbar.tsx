@@ -175,16 +175,15 @@ export default function Navbar() {
                             <IconButton color="inherit">
                               <PersonOutlineOutlinedIcon />
                             </IconButton>
-                            <IconButton color="inherit">
-                              <Badge
-                                badgeContent={totalItemsInCart}
-                                color="error"
-                              >
-                                <ShoppingBagOutlinedIcon />
-                              </Badge>
-                            </IconButton>
+
                             <IconButton color="inherit">
                               <FavoriteBorderOutlinedIcon />
+                            </IconButton>
+                            <IconButton
+                              color="inherit"
+                              onClick={() => navigate("/")}
+                            >
+                              <Logout />
                             </IconButton>
                           </Box>
                         </List>
