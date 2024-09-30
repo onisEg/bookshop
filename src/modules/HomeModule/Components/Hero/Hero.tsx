@@ -1,15 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
-import { GetAllBooks } from "../../../../constants/END_POINTS";
-import axios from "axios";
+
 import "./hero.css";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Box, Typography, Button, Grid, useMediaQuery } from "@mui/material";
-import { toast } from "react-toastify";
+
 import { CartContext } from "../../../../Context/CartContext";
 
 interface Book {
