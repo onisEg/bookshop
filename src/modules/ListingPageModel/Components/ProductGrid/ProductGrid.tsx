@@ -9,9 +9,9 @@ interface ProductGridProps {
 
 export default function ProductGrid({ products }: ProductGridProps) {
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
       {products.map((product: any) => (
-        <Grid item xs={6} sm={4} md={4}  lg={3} key={product.id}>
+        <Grid item xs={6} sm={4} md={4} lg={3} key={product.id}>
           <ProductCard product={product} />
         </Grid>
       ))}

@@ -51,7 +51,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           alt={product.name}
           style={{
             width: "100%",
+            display: "block",
+            aspectRatio: "3 / 4",
+            objectFit: "cover",
           }}
+          loading="lazy"
         />
         <Grid
           display={"flex"}
@@ -71,7 +75,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               md: "hidden",
             },
             transition: "ease-in-out 0.2s",
-            width: "70%",
+            width: { xs: "85%", md: "70%" },
             textTransform: "uppercase",
           }}
         >
@@ -83,15 +87,16 @@ export default function ProductCard({ product }: ProductCardProps) {
               textTransform: "uppercase",
               color: "white",
               fontWeight: "light",
-              marginBottom: "16px",
-              padding: "10px 0",
+              marginBottom: { xs: "8px", md: "16px" },
+              padding: { xs: "6px 0", md: "10px 0" },
               borderRadius: "0",
               ":hover": {
                 bgcolor: "#C24029",
               },
               fontSize: {
-                xs: "10px",
-                md: "22px",
+                xs: "11px",
+                sm: "13px",
+                md: "15px",
               },
             }}
           >
@@ -107,7 +112,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               color: "white",
               fontWeight: "light",
               fontSize: "1rem",
-              padding: "10px 0",
+              padding: { xs: "6px 0", md: "10px 0" },
               borderRadius: "0",
               ":hover": {
                 bgcolor: "#1D156F",
@@ -123,12 +128,14 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Typography
           variant="h5"
           color="var(--blue-color)"
-          fontSize="22px"
           textTransform="capitalize"
           sx={{
-            xs: "16px",
-            md: "22px",
+            fontSize: { xs: "15px", sm: "18px", md: "22px" },
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
           }}
+          title={product.name}
         >
           {product.name}
         </Typography>
