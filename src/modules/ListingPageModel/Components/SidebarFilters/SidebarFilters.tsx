@@ -39,9 +39,10 @@ export default function SidebarFilters({
   clearFilter,
   onCategoryChange,
 }: SidebarFiltersProps) {
-  let cartContext = useContext(CartContext);
-  // استخدام useMediaQuery للتحقق من حجم الشاشة
+  const cartContext = useContext(CartContext);
   const isMobile = useMediaQuery("(max-width:600px)");
+  // On phones and tablets the filters start collapsed so the books are visible first
+  const isCompact = useMediaQuery("(max-width:900px)", { noSsr: true });
 
   return (
     <Box
@@ -57,19 +58,15 @@ export default function SidebarFilters({
         sx={{
           display: "flex",
           flexDirection: "column",
-          ...(isMobile && { flexDirection: "row", gap: 1 }),
+          gap: isCompact ? 1 : 0,
         }}
       >
         <Accordion
           disableGutters
-          defaultExpanded={true}
-          sx={{
-            boxShadow: "none",
-            ...(isMobile && { maxWidth: "50%" }),
-          }}
+          defaultExpanded={!isCompact}
+          sx={{ boxShadow: "none" }}
         >
           <AccordionSummary
-          
             expandIcon={
               <ExpandMoreIcon
                 sx={{
@@ -77,7 +74,7 @@ export default function SidebarFilters({
                 }}
               />
             }
-            sx={{ paddingX: 2, }}
+            sx={{ paddingX: 2 }}
           >
             <Typography
               variant="body1"
@@ -95,11 +92,6 @@ export default function SidebarFilters({
                 display: "flex",
                 alignItems: "center",
                 mb: 2,
-
-                ...(isMobile && {
-                  flexDirection: "column",
-                  alignItems: "stretch",
-                }),
               }}
             >
               <TextField
@@ -107,6 +99,7 @@ export default function SidebarFilters({
                 size="small"
                 variant="outlined"
                 label="Min $"
+                type="number"
                 value={minPrice || ""}
                 onChange={(e) =>
                   setMinPrice(
@@ -117,7 +110,6 @@ export default function SidebarFilters({
                   flex: 1,
                   mr: 1,
                   color: "#393280",
-                  ...(isMobile && { width: "100%" }),
                 }}
               />
               <Typography variant="body2" color="textSecondary">
@@ -127,8 +119,9 @@ export default function SidebarFilters({
                 id="max-price"
                 size="small"
                 label="Max $"
+                type="number"
                 variant="outlined"
-                sx={{ flex: 1, ml: 1, ...(isMobile && { ml: 0 }) }}
+                sx={{ flex: 1, ml: 1 }}
                 value={maxPrice || ""}
                 onChange={(e) =>
                   setMaxPrice(
@@ -142,12 +135,11 @@ export default function SidebarFilters({
 
         {/* Category Accordion */}
         <Accordion
-        
           disableGutters
-          defaultExpanded={true}
-          sx={{  boxShadow: "none", ...(isMobile && { maxWidth: "50%" }) }}
+          defaultExpanded={!isCompact}
+          sx={{ boxShadow: "none" }}
         >
-          <AccordionSummary 
+          <AccordionSummary
             expandIcon={
               <ExpandMoreIcon
                 sx={{
@@ -193,8 +185,6 @@ export default function SidebarFilters({
         </Accordion>
       </Box>
 
-  
-
       <Button
         variant="contained"
         sx={{
@@ -205,7 +195,7 @@ export default function SidebarFilters({
           borderRadius: "0",
           fontWeight: "400",
           fontSize: "16px",
-          mt: 6,
+          mt: isCompact ? 2 : 6,
           ":hover": {
             backgroundColor: "var(--blue-color-hover)",
             color: "#393280",

@@ -14,7 +14,7 @@ export default function ProductPagination({
   itemsPerPage,
   onPageChange,
 }: ProductPaginationProps) {
-  const isMobile = useMediaQuery("(max-width:600px)")
+  const isMobile = useMediaQuery("(max-width:600px)");
   return (
     <Box sx={{ display: "flex", justifyContent: "center", my: 5 }}>
       <Pagination
@@ -23,6 +23,7 @@ export default function ProductPagination({
         onChange={onPageChange}
         color="primary"
         shape="rounded"
+        siblingCount={isMobile ? 0 : 1}
         renderItem={(item) => (
           <PaginationItem
             components={{ previous: ArrowBack, next: ArrowForward }}
@@ -39,8 +40,9 @@ export default function ProductPagination({
           ".MuiPaginationItem-root": {
             border: "1px solid #E5E3DA",
             borderRadius: "50%",
-            width: isMobile?"20px": "48px",
-            height: isMobile?"32px": "48px",
+            minWidth: isMobile ? "32px" : "48px",
+            width: isMobile ? "32px" : "48px",
+            height: isMobile ? "32px" : "48px",
           },
         }}
       />

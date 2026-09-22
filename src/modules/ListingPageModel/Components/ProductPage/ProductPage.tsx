@@ -25,7 +25,7 @@ export default function ProductPage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  let cartContext = useContext(CartContext);
+  const cartContext = useContext(CartContext);
   const [searchParams] = useSearchParams();
   const isMobile = useMediaQuery("(max-width:600px)");
   useEffect(() => {
@@ -35,17 +35,25 @@ export default function ProductPage() {
     }
   }, [searchParams]);
 
-  const allBooks =
-    cartContext?.categories.flatMap((category: any) =>
-      category.books.map((book: any, index: number) => ({
-        id: book._id,
-        name: book.name,
-        author: book.author || book.auther,
-        price: book.price,
-        image: TestImages[index % TestImages.length],
-        categoryId: category._id,
-      }))
-    ) || [];
+  const allBooks = useMemo(
+    () =>
+      cartContext?.categories.flatMap((category: any) =>
+        category.books.map((book: any, index: number) => ({
+          id: book._id,
+          name: book.name,
+          author: book.author || book.auther,
+          price: book.price,
+          image: TestImages[index % TestImages.length],
+          categoryId: category._id,
+        }))
+      ) || [],
+    [cartContext?.categories]
+  );
+
+  // Go back to the first page whenever the filters or sorting change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategories, minPrice, maxPrice, sortOrder]);
 
   // Filtering and sorting books using useMemo
   const filteredProducts = useMemo(() => {
@@ -75,12 +83,7 @@ export default function ProductPage() {
       return meetsMinPrice && meetsMaxPrice;
     });
 
-    // If both minPrice and maxPrice are undefined, display all products
-    if (minPrice === undefined && maxPrice === undefined) {
-      return filteredProducts;
-    }
-
-    return filteredProducts; // Return filtered and sorted products
+    return filteredProducts;
   }, [selectedCategories, minPrice, maxPrice, sortOrder, allBooks]);
 
   // Function to select/deselect a category
@@ -93,7 +96,7 @@ export default function ProductPage() {
   };
 
   const handleItemsToShowChange = (event: any) => {
-    setItemsPerPage(event.target.value);
+    setItemsPerPage(Number(event.target.value));
     setCurrentPage(1);
   };
 
@@ -122,7 +125,7 @@ export default function ProductPage() {
     <>
       <TopSection currentPath="Home" pageTitle="Books" />
       <Box sx={{ padding: !isMobile ? 4 : 2 }}>
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 2, md: 4 }}>
           <Grid item xs={12} md={3}>
             <SidebarFilters
               minPrice={minPrice}
@@ -137,22 +140,23 @@ export default function ProductPage() {
             <Box
               sx={{
                 display: "flex",
+                flexWrap: "wrap",
                 justifyContent: "space-between",
                 alignItems: "center",
-                mb: 4,
+                gap: 2,
+                mb: { xs: 3, md: 4 },
               }}
             >
-              <FormControl variant="standard" sx={{ width: 200 }}>
+              <FormControl
+                variant="standard"
+                sx={{ width: { xs: "calc(60% - 8px)", sm: 200 } }}
+              >
                 <InputLabel>Sort by : </InputLabel>
                 <Select
                   value={sortOrder}
                   onChange={(event) => setSortOrder(event.target.value)}
                   label="Sort by "
-                  sx={{
-                    color: "#393280",
-                    fontWeight: "600",
-                    fontSize: isMobile ? "" : "",
-                  }}
+                  sx={{ color: "#393280", fontWeight: "600" }}
                 >
                   <MenuItem value="alphabetical">Alphabetically, A-Z</MenuItem>
                   <MenuItem value="price-asc">Price: Low to High</MenuItem>
@@ -164,17 +168,26 @@ export default function ProductPage() {
                 color="#393280"
                 fontWeight="600"
                 sx={{
-                  fontSize: isMobile ? ".8rem" : "1rem",
-                  textAlign: isMobile ? "center" : "start",
+                  fontSize: { xs: ".85rem", sm: "1rem" },
+                  textAlign: "center",
+                  order: { xs: 3, sm: 0 },
+                  width: { xs: "100%", sm: "auto" },
                 }}
               >
-                Showing {indexOfFirstProduct + 1}-
-                {Math.min(indexOfLastProduct, filteredProducts.length)} of{" "}
-                {filteredProducts.length} results
+                {filteredProducts.length === 0
+                  ? "No results"
+                  : `Showing ${indexOfFirstProduct + 1}-${Math.min(
+                      indexOfLastProduct,
+                      filteredProducts.length
+                    )} of ${filteredProducts.length} results`}
               </Typography>
               <FormControl
                 variant="standard"
-                sx={{ width: 100, color: "#393280", fontWeight: "600" }}
+                sx={{
+                  width: { xs: "calc(40% - 8px)", sm: 100 },
+                  color: "#393280",
+                  fontWeight: "600",
+                }}
               >
                 <InputLabel>Show : </InputLabel>
                 <Select
@@ -188,13 +201,23 @@ export default function ProductPage() {
                 </Select>
               </FormControl>
             </Box>
-            <ProductGrid products={currentProducts} />
-            <ProductPagination
-              currentPage={currentPage}
-              totalItems={filteredProducts.length}
-              itemsPerPage={itemsPerPage}
-              onPageChange={handlePageChange}
-            />
+            {filteredProducts.length === 0 ? (
+              <Typography
+                sx={{ textAlign: "center", color: "#393280", py: 8 }}
+              >
+                No books match these filters.
+              </Typography>
+            ) : (
+              <>
+                <ProductGrid products={currentProducts} />
+                <ProductPagination
+                  currentPage={currentPage}
+                  totalItems={filteredProducts.length}
+                  itemsPerPage={itemsPerPage}
+                  onPageChange={handlePageChange}
+                />
+              </>
+            )}
           </Grid>
         </Grid>
       </Box>
