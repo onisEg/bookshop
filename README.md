@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+# Book Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An online bookstore with a catalogue, book details, a shared shopping basket and a checkout screen built with Stripe Elements.
 
-Currently, two official plugins are available:
+[Open the live demo](https://bookshop-git-main-onisegs-projects.vercel.app/) · [View screenshot](https://raw.githubusercontent.com/onisEg/resume/23df91e50f87b60e1360d79edcc24cf77eb09b07/public/projects/bookshop.webp)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## From a book to a basket
 
-## Expanding the ESLint configuration
+1. Open a book from the listing. Filters and pagination live alongside the product grid. The add-to-cart control connects the selected book to the shared basket.
+2. The cart screen consumes CartContext. Adding a book, removing an item or changing its quantity is handled by that provider. The repository also includes Redux slices for the counter and theme.
+3. At checkout the payment component obtains a token from Stripe and uses the order response to navigate to confirmation. Basket and order operations require the configured backend.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Reading the repository
 
-- Configure the top-level `parserOptions` property like this:
+Some files have a duplicate `-AnasMacBook` suffix. Start from the imports in `src/main.tsx` and `src/App.tsx` to follow the modules loaded by the application.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Run locally
+
+Use Node.js 22.12 or later and npm. From the repository root, run:
+
+```sh
+npm ci
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Open the local URL printed by Vite. To build the distributable files in `dist/`, run `npm run build`. To serve that build locally, run `npm run preview`.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Source guide
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+| File or directory | What to look for |
+| --- | --- |
+| [src/main.tsx](src/main.tsx) | Mounts the auth and cart providers. |
+| [src/Context/CartContext.tsx](src/Context/CartContext.tsx) | Basket operations, quantities and fetching the current basket. |
+| [src/modules/ListingPageModel](src/modules/ListingPageModel) | Product grid, filters and pagination. |
+| [src/modules/CartModule](src/modules/CartModule) | Cart details, payment and confirmation screens. |
+| [src/constants/END_POINTS.ts](src/constants/END_POINTS.ts) | Backend endpoints used by the client. |
+
+## Manual walkthrough
+
+Select a book, add it to the basket and change its quantity. Compare the visible basket with the response when it reloads. For payment testing, use the service’s test configuration. A rendered payment form alone does not confirm an order.
